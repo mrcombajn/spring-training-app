@@ -1,4 +1,4 @@
-package pl.trainingapp.dtos;
+package pl.trainingapp.dbobjects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Exercise {
 
-    int id;
+    private int id;
 
-    String name;
+    private String name;
 }

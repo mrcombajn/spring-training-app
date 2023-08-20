@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ExercisePlan {
+public class ExerciseDto {
 
-    int id;
+    private int id;
+
+    private String name;
 }
