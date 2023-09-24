@@ -2,7 +2,10 @@ package pl.trainingapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.trainingapp.entities.Exercise;
 import pl.trainingapp.repositories.ExerciseRepository;
+
+import java.util.List;
 
 @Service
 public class ExerciseService {
@@ -14,12 +17,20 @@ public class ExerciseService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public void addExercise(String name) {
-        exerciseRepository.addExerise(name);
+    public List<Exercise> getAllExercises() {
+        return exerciseRepository.getExercises();
     }
 
-    public void deleteExerciseById(int id) {
-        exerciseRepository.deleteExercise(id);
+    public Exercise getSpecificExercise(int id) {
+        return exerciseRepository.getExerciseById(id);
+    }
+
+    public void addExercise(String name) {
+        exerciseRepository.addExercise(name);
+    }
+
+    public void deleteExercise(int id) {
+        exerciseRepository.deleteExerciseById(id);
     }
 
 }
