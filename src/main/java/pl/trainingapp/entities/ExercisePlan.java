@@ -1,13 +1,11 @@
-package pl.trainingapp.dbobjects;
+package pl.trainingapp.entities;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Exercise {
+public class ExercisePlan {
 
     private int id;
-
-    private String name;
 }
