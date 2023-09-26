@@ -1,35 +1,34 @@
 package pl.trainingapp.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.trainingapp.entities.Exercise;
+import pl.trainingapp.exceptions.EntityNotFoundException;
 import pl.trainingapp.repositories.ExerciseRepository;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ExerciseService {
 
-    private ExerciseRepository exerciseRepository;
-
-    @Autowired
-    public ExerciseService(ExerciseRepository exerciseRepository) {
-        this.exerciseRepository = exerciseRepository;
-    }
+    private final ExerciseRepository exerciseRepository;
 
     public List<Exercise> getAllExercises() {
         return exerciseRepository.getExercises();
     }
 
-    public Exercise getSpecificExercise(int id) {
-        return exerciseRepository.getExerciseById(id);
+    public Exercise getSpecificExercise(int id) throws EntityNotFoundException {
+        return exerciseRepository
+                .getExerciseById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find entity in database."));
     }
 
     public void addExercise(String name) {
         exerciseRepository.addExercise(name);
     }
 
-    public void deleteExercise(int id) {
+    public void deleteExercise(int id) throws EntityNotFoundException {
         exerciseRepository.deleteExerciseById(id);
     }
 

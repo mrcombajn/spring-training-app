@@ -1,16 +1,13 @@
 package pl.trainingapp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import pl.trainingapp.repositories.ExerciseRepository;
+import pl.trainingapp.services.ExerciseService;
 
 @RestController
+@RequiredArgsConstructor
 public class ExerciseController {
 
-    private ExerciseRepository exerciseRepository;
+    private final ExerciseService exerciseService;
 
-    @Autowired
-    public ExerciseController(ExerciseRepository exerciseRepository) {
-        this.exerciseRepository = exerciseRepository;
-    }
 }
