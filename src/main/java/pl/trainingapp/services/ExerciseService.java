@@ -28,7 +28,7 @@ public class ExerciseService {
         exerciseRepository.addExercise(name);
     }
 
-    public void deleteExercise(int id) throws EntityNotFoundException {
+    public void deleteExercise(int id) {
         exerciseRepository.deleteExerciseById(id);
     }
 
