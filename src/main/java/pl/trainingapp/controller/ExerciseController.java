@@ -1,43 +1,34 @@
 package pl.trainingapp.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import pl.trainingapp.controller.requests.ExerciseRequest;
+import pl.trainingapp.entities.Exercise;
 import pl.trainingapp.services.ExerciseService;
 
+import java.util.List;
 
-@RestController
+
+@RestController("/exercices")
 @RequiredArgsConstructor
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
 
-    @GetMapping("/exercises")
-    public String getAllExercises() {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            return objectMapper.writeValueAsString(exerciseService.getAllExercises());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    @GetMapping
+    public List<Exercise> getAllExercises() {
+        return exerciseService.getAllExercises();
     }
 
-    @GetMapping("/exercises/{id}")
-    public String getExerciseById(@PathVariable int id) {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            return objectMapper.writeValueAsString(exerciseService.getSpecificExercise(id));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    @GetMapping("/{id}")
+    public Exercise getExerciseById(@PathVariable int id) {
+        return exerciseService.getSpecificExercise(id);
     }
 
-    @PostMapping("/exercises/{name}")
-    public void addExercise(@PathVariable String name) {
-        exerciseService.addExercise(name);
+    @PostMapping
+    public void addExercise(@RequestBody ExerciseRequest exerciseRequest) {
+        exerciseService.addExercise(exerciseRequest.getName());
     }
 
     @DeleteMapping("/exercises/{id}")
