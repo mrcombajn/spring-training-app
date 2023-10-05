@@ -2,9 +2,11 @@ package pl.trainingapp.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import pl.trainingapp.entities.Exercise;
 import pl.trainingapp.exceptions.EntityNotFoundException;
 import pl.trainingapp.repositories.ExerciseRepository;
+import pl.trainingapp.controller.requests.ExerciseRequest;
 
 import java.util.List;
 
@@ -24,8 +26,8 @@ public class ExerciseService {
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find entity in database."));
     }
 
-    public void addExercise(String name) {
-        exerciseRepository.addExercise(name);
+    public void addExercise(ExerciseRequest exerciseRequest) {
+        exerciseRepository.addExercise(exerciseRequest.getName());
     }
 
     public void deleteExercise(int id) {
