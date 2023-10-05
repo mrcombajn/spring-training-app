@@ -28,7 +28,7 @@ public class ExerciseController {
 
     @PostMapping
     public void addExercise(@RequestBody ExerciseRequest exerciseRequest) {
-        exerciseService.addExercise(exerciseRequest.getName());
+        exerciseService.addExercise(exerciseRequest);
     }
 
     @DeleteMapping("/{id}")
