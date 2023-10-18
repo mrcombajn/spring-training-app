@@ -69,17 +69,13 @@ class ExerciseControllerTest {
     }
 
     @Test
-    void getUnavailableExercise() {
+    void getUnavailableExercise() throws Exception {
         when(exerciseService.getSpecificExercise(4))
                 .thenThrow(new EntityNotFoundException("Entity not found!"));
 
-        try {
             this.mockMvc.perform(get("/4"))
                     .andDo(print())
                     .andExpect(status().is5xxServerError());
-        } catch (Exception e) {
-
-        }
     }
 
     @Test
