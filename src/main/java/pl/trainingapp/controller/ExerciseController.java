@@ -10,7 +10,8 @@ import pl.trainingapp.services.ExerciseService;
 import java.util.List;
 
 
-@RestController("/exercices")
+@RestController
+@RequestMapping("exercises")
 @RequiredArgsConstructor
 public class ExerciseController {
 

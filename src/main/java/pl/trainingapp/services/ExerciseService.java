@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.trainingapp.entities.Exercise;
-import pl.trainingapp.exceptions.EntityNotFoundException;
+import pl.trainingapp.entities.exceptions.EntityNotFoundException;
 import pl.trainingapp.repositories.ExerciseRepository;
 import pl.trainingapp.controller.requests.ExerciseRequest;
 

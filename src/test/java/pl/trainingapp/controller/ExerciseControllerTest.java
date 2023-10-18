@@ -5,13 +5,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.trainingapp.entities.Exercise;
-import pl.trainingapp.exceptions.EntityNotFoundException;
+import pl.trainingapp.entities.exceptions.EntityNotFoundException;
 import pl.trainingapp.services.ExerciseService;
 
 import java.util.ArrayList;
