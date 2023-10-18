@@ -20,10 +20,7 @@ public class ExerciseRepository {
                 .exercises.stream().filter(e -> e.getId() == id)
                 .findFirst();
 
-        if (exercise.isPresent()) {
-            ExerciseDatabase.exercises.remove(exercise.get());
-        }
-
+        exercise.ifPresent(e -> ExerciseDatabase.exercises.remove(e));
     }
 
     public List<Exercise> getExercises() {

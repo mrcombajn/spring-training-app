@@ -1,26 +1,34 @@
 package pl.trainingapp.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.util.Assert;
+import pl.trainingapp.controller.requests.ExerciseRequest;
 import pl.trainingapp.entities.Exercise;
 import pl.trainingapp.entities.exceptions.EntityNotFoundException;
 import pl.trainingapp.services.ExerciseService;
 
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.http.RequestEntity.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ExerciseController.class)
+@DirtiesContext
 class ExerciseControllerTest {
 
     @Autowired
@@ -73,16 +81,41 @@ class ExerciseControllerTest {
         when(exerciseService.getSpecificExercise(4))
                 .thenThrow(new EntityNotFoundException("Entity not found!"));
 
-            this.mockMvc.perform(get("/4"))
-                    .andDo(print())
-                    .andExpect(status().is5xxServerError());
+        this.mockMvc.perform(get("/4"))
+                .andDo(print())
+                .andExpect(status().is5xxServerError());
     }
 
     @Test
     void addExercise() {
+        ExerciseRequest exerciseRequest = new ExerciseRequest("new Exercise");
+        doAnswer( i -> {
+                    Assertions.assertEquals(4, exercises.size());
+                    return null;
+                }
+        ).when(exerciseService).addExercise(exerciseRequest);
+
+
+/*        this.mockMvc.perform()
+                .andExpect(status().isOk());*/
     }
 
     @Test
-    void deleteExercise() {
+    void deleteExerciseSuccessful() throws Exception{
+        doAnswer( i -> {
+            Assertions.assertEquals(2, exercises.size());
+            return null;
+        }
+        ).when(exerciseService).deleteExercise(1);
+
+
+        this.mockMvc.perform(delete("/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteExerciseUnsuccessful() throws Exception{
+        this.mockMvc.perform(delete("/4"))
+                .andExpect(status().is4xxClientError());
     }
 }
