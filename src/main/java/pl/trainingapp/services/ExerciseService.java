@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.trainingapp.entities.Exercise;
-import pl.trainingapp.exceptions.EntityNotFoundException;
+import pl.trainingapp.entities.exceptions.EntityNotFoundException;
 import pl.trainingapp.repositories.ExerciseRepository;
 import pl.trainingapp.controller.requests.ExerciseRequest;
 
@@ -17,21 +17,21 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
 
     public List<Exercise> getAllExercises() {
-        return exerciseRepository.getExercises();
+        return (List<Exercise>) exerciseRepository.findAll();
     }
 
-    public Exercise getSpecificExercise(int id) throws EntityNotFoundException {
+    public Exercise getSpecificExercise(long id) throws EntityNotFoundException {
         return exerciseRepository
-                .getExerciseById(id)
+                .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find entity in database."));
     }
 
     public void addExercise(ExerciseRequest exerciseRequest) {
-        exerciseRepository.addExercise(exerciseRequest.getName());
+        exerciseRepository.save(new Exercise(exerciseRequest));
     }
 
-    public void deleteExercise(int id) {
-        exerciseRepository.deleteExerciseById(id);
+    public void deleteExercise(long id) {
+        exerciseRepository.deleteById(id);
     }
 
 }
